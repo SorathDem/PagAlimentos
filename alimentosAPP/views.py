@@ -6,6 +6,8 @@ from .forms import CustomUserCreationForm
 def principal(request):
     return render(request, "index.html")
 
+def pagprincipal(request):
+    return render(request, "pagprincipal.html")
 
 @login_required
 def login_page(request):

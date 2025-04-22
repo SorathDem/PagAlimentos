@@ -25,4 +25,5 @@ urlpatterns = [
     path("login/", views.login_view, name="login"),
     path('accounts/', include('django.contrib.auth.urls')),
     path('index/', views.principal, name='principal'),
+    path('pagprincipal/', views.pagprincipal, name='pagprincipal'),
 ]

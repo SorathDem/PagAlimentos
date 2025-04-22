@@ -30,6 +30,7 @@ LOGIN_URL = '/accounts/login/'
 
 ALLOWED_HOSTS = []
 
+LOGIN_REDIRECT_URL = 'pagprincipal'
 
 # Application definition
 
