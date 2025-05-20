@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Mi Proyecto Django{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>Administrador</h1>
+        <nav>
+            <a href="{% url 'adminPanel' %}">Inicio</a> |
+            <a href="{% url 'lista_usuarios' %}">Usuarios</a> |
+            <a href="{% url 'logout' %}">Cerrar sesión</a>
+        </nav>
+        <hr />
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+<h2>Publicaciones</h2>
+<table>
+    <tr><th>Empresa</th><th>Fecha</th><th>Acciones</th></tr>
+    {% for p in publicaciones %}
+    <tr>
+        <td>{{ p.nombre_empresa }}</td>
+        <td>{{ p.fecha_publicacion }}</td>
+        <td>
+            <a href="{% url 'editar_publicacion' p.id %}">Editar</a>
+            <a href="{% url 'eliminar_publicacion' p.id %}">Eliminar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>

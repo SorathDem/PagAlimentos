@@ -26,11 +26,20 @@ SECRET_KEY = 'django-insecure-6pmcl@cl_jh)t5=zqe@c0rcd12a!dnnku@@x-h&0n$w)n=r294
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-LOGIN_URL = '/accounts/login/'
+LOGIN_URL = '/login/'
 
 ALLOWED_HOSTS = []
 
 LOGIN_REDIRECT_URL = 'pagprincipal'
+
+AUTH_USER_MODEL = 'alimentosAPP.CustomUser'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'foryekkofk@gmail.com'
+EMAIL_HOST_PASSWORD = 'luqf kxwp yyfz kwje'
 
 # Application definition
 

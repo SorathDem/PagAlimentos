@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Publicaciones</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .publicacion {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .empresa {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .fecha {
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .categoria {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .btn {
+            margin-right: 10px;
+            padding: 6px 12px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .formulario-aplicar {
+            display: none;
+            margin-top: 15px;
+            padding: 10px;
+            border: 1px dashed #999;
+            background-color: #f9f9f9;
+        }
+        textarea {
+            width: 100%;
+            height: 60px;
+            resize: vertical;
+        }
+        input[type="number"] {
+            width: 80px;
+        }
+    </style>
+    <script>
+        function toggleFormulario(id) {
+            const form = document.getElementById("formulario-" + id);
+            form.style.display = form.style.display === "none" ? "block" : "none";
+        }
+    </script>
+</head>
+<body>
+
+    <h1>Lista de Publicaciones</h1>
+
+    {% for publicacion in publicaciones %}
+        <div class="publicacion">
+            <div class="empresa">{{ publicacion.nombre_empresa }}</div>
+            <div class="fecha">Publicado el {{ publicacion.fecha_publicacion|date:"d/m/Y H:i" }}</div>
+
+            {% for categoria_codigo, categoria_nombre in categorias %}
+                {% with productos=publicacion.productos.all %}
+                    {% for producto in productos %}
+                        {% if producto.categoria == categoria_codigo %}
+                            {% if forloop.first %}
+                                <div class="categoria">{{ categoria_nombre }}</div>
+                                <ul>
+                            {% endif %}
+                            <li>{{ producto.nombre }} - {{ producto.cantidad }} unidades (Vence: {{ producto.fecha_caducidad|date:"d/m/Y" }})</li>
+                            {% if forloop.last %}
+                                </ul>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                {% endwith %}
+            {% endfor %}
+
+            <!-- Botones -->
+            <a href="{% url 'contactar_entidad' publicacion.id %}">Contactar</a>
+            <button class="btn" onclick="toggleFormulario('{{ publicacion.id }}')">Aplicar</button>
+
+            <!-- Formulario de aplicación -->
+            <div class="formulario-aplicar" id="formulario-{{ publicacion.id }}">
+                <form method="POST" action="{% url 'enviar_solicitud' publicacion.id %}">
+                    {% csrf_token %}
+                    <label for="motivo-{{ publicacion.id }}"><strong>Motivo:</strong></label><br>
+                    <textarea name="motivo" id="motivo-{{ publicacion.id }}" required></textarea><br><br>
+
+                    <strong>Selecciona cantidad deseada por producto:</strong><br>
+                    {% for producto in publicacion.productos.all %}
+                        <label>{{ producto.nombre }} ({{ producto.categoria }}) - Disponible: {{ producto.cantidad }}</label><br>
+                        <input type="number" name="producto_{{ producto.id }}" min="0" max="{{ producto.cantidad }}" value="0"><br><br>
+                    {% endfor %}
+
+                    <button type="submit" class="btn">Enviar solicitud</button>
+                </form>
+            </div>
+        </div>
+    {% empty %}
+        <p>No hay publicaciones disponibles.</p>
+    {% endfor %}
+    
+    <a href="{% url 'fundacion' %}">Volver</a>
+</body>
+</html>

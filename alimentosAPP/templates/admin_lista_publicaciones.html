@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Lista de Publicaciones</h2>
+  <ul>
+    {% for pub in publicaciones %}
+      <li>
+        <strong>{{ pub.nombre_empresa }}</strong>
+        <a href="{% url 'editar_publicacion_admin' pub.id %}">Editar</a> |
+        <a href="{% url 'eliminar_publicacion' pub.id %}">Eliminar</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

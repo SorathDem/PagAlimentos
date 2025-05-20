@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Editar Producto Donado: {{ producto.nombre }}</h2>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar cambios</button>
+  </form>
+
+  <hr>
+  <h3>Productos asociados a esta publicación ({{ publicacion.nombre_empresa }})</h3>
+  {% if productos_publicacion %}
+    <ul>
+      {% for prod in productos_publicacion %}
+        <li>
+          {{ prod.nombre }} - {{ prod.categoria }} - Cant: {{ prod.cantidad }} - Vence: {{ prod.fecha_caducidad }}
+          {% if prod.id == producto.id %}
+            <strong>(Editando)</strong>
+          {% else %}
+            <a href="{% url 'editar_producto_donado' prod.id %}">Editar</a> |
+            <a href="{% url 'eliminar_producto_donado' prod.id %}">Eliminar</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No hay productos asociados a esta publicación.</p>
+  {% endif %}
+
+  <a href="{% url 'editar_publicacion_admin' publicacion.id %}">Volver a la publicación</a>
+{% endblock %}

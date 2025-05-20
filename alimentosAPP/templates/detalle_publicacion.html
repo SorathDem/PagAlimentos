@@ -1,0 +1,12 @@
+<h1>Detalle de Publicación: {{ publicacion.titulo }}</h1>
+
+<p>{{ publicacion.descripcion }}</p>
+
+<h2>Productos donados:</h2>
+<ul>
+  {% for producto in productos %}
+    <li>{{ producto.nombre }} - Cantidad: {{ producto.cantidad }}</li>
+  {% empty %}
+    <li>No hay productos.</li>
+  {% endfor %}
+</ul>

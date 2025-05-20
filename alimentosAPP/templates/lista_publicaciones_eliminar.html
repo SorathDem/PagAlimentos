@@ -1,0 +1,9 @@
+<h1>Publicaciones</h1>
+<ul>
+    {% for pub in publicaciones %}
+        <li>
+            {{ pub.nombre_empresa }} - {{ pub.entidad.username }}
+            <a href="{% url 'eliminar_publicacion' pub.id %}">Eliminar</a>
+        </li>
+    {% endfor %}
+</ul>

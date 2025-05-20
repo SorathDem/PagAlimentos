@@ -1,0 +1,15 @@
+{% for publicacion in publicaciones %}
+    <div>
+        <h3>{{ publicacion.nombre_empresa }}</h3>
+        <ul>
+            {% for producto in publicacion.productos.all %}
+                <li>{{ producto.nombre }} - Cantidad: {{ producto.cantidad }}</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'editar_publicacion' publicacion.pk %}">Editar</a>
+        <a href="{% url 'eliminar_publicacion_usuario' publicacion.pk %}">Eliminar</a>
+
+    </div>
+    
+{% endfor %}
+<a href="{% url 'entidad' %}">Volver</a>

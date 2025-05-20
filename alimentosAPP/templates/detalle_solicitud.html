@@ -1,0 +1,27 @@
+<h2>Detalles de la Solicitud</h2>
+
+<p><strong>Fundación:</strong> {{ solicitud.fundacion }}</p>
+<p><strong>Motivo:</strong> {{ solicitud.motivo }}</p>
+<p><strong>Fecha de solicitud:</strong> {{ solicitud.fecha_solicitud }}</p>
+
+<h3>Productos Solicitados</h3>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Cantidad Solicitada</th>
+            <th>Fecha de Caducidad</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ps in productos_solicitados %}
+        <tr>
+            <td>{{ ps.producto.nombre }}</td>
+            <td>{{ ps.cantidad }}</td>
+            <td>{{ ps.producto.fecha_caducidad }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'lista_solicitudes' %}">Volver a la lista de solicitudes</a>

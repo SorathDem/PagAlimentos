@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Reporte de Donaciones Exitosas</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Entidad</th>
+            <th>Fundación</th>
+            <th>Fecha</th>
+            <th>Cantidad</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for donacion in donaciones %}
+        <tr>
+            <td>{{ donacion.producto.nombre }}</td>
+            <td>{{ donacion.entidad.username }}</td>
+            <td>{{ donacion.fundacion.username }}</td>
+            <td>{{ donacion.fecha_donacion }}</td>
+            <td>{{ donacion.cantidad }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Mi Publicación</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+
+<h2>Editar Mi Publicación</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    <!-- Formulario de la publicación -->
+    {{ pub_form.as_p }}
+
+    <h3>Productos</h3>
+    {{ formset.management_form }}
+
+    <div id="formset-container">
+        {% for form in formset %}
+            <div class="producto-form" style="margin-bottom: 20px; border: 1px solid #ccc; padding: 10px;">
+                {{ form.as_p }}
+                {% if form.can_delete %}
+                    {{ form.DELETE }} <label>Eliminar</label>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+    <button type="button" id="add-product">Agregar Producto</button>
+    <button type="submit">Guardar Cambios</button>
+    <a href="{% url 'mis_publicaciones' %}">Cancelar</a>
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Inicializa flatpickr para todos los input date actuales
+    flatpickr("input[type='date']", {
+        dateFormat: "Y-m-d",
+        altInput: true,
+        altFormat: "d/m/Y",
+        locale: "es"
+    });
+
+    const addBtn = document.getElementById('add-product');
+    const container = document.getElementById('formset-container');
+    const totalForms = document.getElementById('id_form-TOTAL_FORMS');
+
+    addBtn.addEventListener('click', function () {
+        const formCount = parseInt(totalForms.value);
+        const firstForm = container.querySelector('.producto-form');
+        const newForm = firstForm.cloneNode(true);
+
+        // Limpia valores de inputs clonados excepto hidden
+        newForm.querySelectorAll('input, select').forEach(function(input) {
+            if (input.type !== 'hidden') {
+                input.value = '';
+            }
+        });
+
+        // Actualiza índices en atributos name e id
+        newForm.innerHTML = newForm.innerHTML.replace(/form-(\d)+/g, `form-${formCount}`);
+
+        container.appendChild(newForm);
+        totalForms.value = formCount + 1;
+
+        // Re-inicializa flatpickr para los nuevos inputs de fecha
+        flatpickr(newForm.querySelectorAll("input[type='date']"), {
+            dateFormat: "Y-m-d",
+            altInput: true,
+            altFormat: "d/m/Y",
+            locale: "es"
+        });
+    });
+});
+</script>
+
+</body>
+</html>

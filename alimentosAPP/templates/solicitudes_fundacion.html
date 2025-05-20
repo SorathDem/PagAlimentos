@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis Solicitudes</title>
+</head>
+<body>
+    <h2>Mis Solicitudes</h2>
+
+    {% if solicitudes %}
+        <ul>
+            {% for solicitud in solicitudes %}
+                <li style="margin-bottom: 15px;">
+                    <strong>Empresa:</strong> {{ solicitud.publicacion.nombre_empresa }}<br>
+                    <strong>Fecha de solicitud:</strong> {{ solicitud.fecha_solicitud|date:"d/m/Y H:i" }}<br>
+                    <strong>Estado (raw):</strong> "{{ solicitud.estado }}"<br>
+                    <strong>Estado:</strong> {{ solicitud.get_estado_display }}<br>
+                    <strong>Motivo:</strong> {{ solicitud.motivo }}
+                    <br>
+                </li>
+                <hr>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No has enviado ninguna solicitud aún.</p>
+    {% endif %}
+    <a href="{% url 'fundacion' %}">Volver</a>
+</body>
+</html>

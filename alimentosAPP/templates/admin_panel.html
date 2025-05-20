@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Bienvenido, Administrador</h1>
+<p>Aquí puedes gestionar usuarios y generar reportes.</p>
+
+<h1>Panel de Administración</h1>
+<ul>
+    <li><a href="{% url 'lista_usuarios' %}">Gestionar Usuarios</a></li>
+    <li><a href="{% url 'lista_publicaciones_admin' %}">Gestionar Publicaciones</a></li>
+    <li><a href="{% url 'reporte_donaciones_exitosas' %}">Reporte de Donaciones Exitosas</a></li>
+    <li><a href="{% url 'reporte_donaciones_general' %}">Reporte General de Donaciones</a></li>
+</ul>
+{% endblock %}

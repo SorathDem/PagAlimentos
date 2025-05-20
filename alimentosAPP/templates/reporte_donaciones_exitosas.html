@@ -1,0 +1,29 @@
+<!-- reporte_donaciones_exitosas.html -->
+{% extends 'base.html' %}
+{% block content %}
+<h2>Reporte de Donaciones Exitosas</h2>
+
+{% if donaciones %}
+  {% for solicitud in donaciones %}
+    <h3>Empresa: {{ solicitud.publicacion.nombre_empresa }}</h3>
+    <p>Fundación: {{ solicitud.fundacion.username }}</p>
+    <p>Fecha: {{ solicitud.fecha_solicitud|date:"d/m/Y H:i" }}</p>
+    <p>Motivo: {{ solicitud.motivo }}</p>
+    
+    <strong>Productos Solicitados:</strong>
+    <ul>
+      {% for prod_solicitado in solicitud.productos_solicitados.all %}
+        <li>
+          {{ prod_solicitado.producto.nombre }} -
+          Cantidad solicitada: {{ prod_solicitado.cantidad }} -
+          Categoría: {{ prod_solicitado.producto.categoria }} -
+          Vence: {{ prod_solicitado.producto.fecha_caducidad|date:"d/m/Y" }}
+        </li>
+      {% endfor %}
+    </ul>
+    <hr>
+  {% endfor %}
+{% else %}
+  <p>No hay donaciones exitosas.</p>
+{% endif %}
+{% endblock %}
