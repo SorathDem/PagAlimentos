@@ -1,16 +1,112 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Confirmar Eliminación</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #2c3e50;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            line-height: 1.6;
+        }
+
+        /* Estilos para el título */
+        h2 {
+            font-size: 2rem;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        /* Estilos para el formulario */
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Estilos para los botones */
+        button, a {
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 1rem;
+            color: #fff;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        button {
+            background-color: #e74c3c; /* Rojo para acción destructiva */
+        }
+
+        button:hover {
+            background-color: #c0392b;
+        }
+
+        a {
+            background-color: #3498db; /* Azul para acción neutral */
+            margin-left: 2px; /* Botones juntos, consistente con páginas anteriores */
+        }
+
+        a:hover {
+            background-color: #2980b9;
+        }
+
+        button:focus, a:focus {
+            outline: 2px solid #3498db;
+            outline-offset: 2px;
+        }
+
+        /* Estilos responsivos */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+            }
+
+            form {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            button, a {
+                width: 100%;
+                text-align: center;
+                margin: 5px 0;
+            }
+
+            a {
+                margin-left: 0;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h2>¿Estás seguro de que deseas eliminar la publicación de {{ publicacion.nombre_empresa }}?</h2>
+    <div class="container">
+        <h2>¿Estás seguro de que deseas eliminar la publicación de {{ publicacion.nombre_empresa }}?</h2>
 
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">Sí, eliminar</button>
-        <a href="{% url 'lista_publicaciones' %}">Cancelar</a>
-    </form>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit">Sí, eliminar</button>
+            <a href="{% url 'lista_publicaciones' %}">Cancelar</a>
+        </form>
+    </div>
 </body>
 </html>
+```

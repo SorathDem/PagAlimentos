@@ -1,69 +1,306 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Crear Publicación</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #2c3e50;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            line-height: 1.6;
+        }
 
-<h2>Crear Publicación</h2>
+        /* Estilos para el contenedor principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-<form method="post">
-    {% csrf_token %}
-    {{ pub_form.as_p }}
+        /* Estilos para el título */
+        h2 {
+            font-size: 2rem;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
 
-    <h3>Productos</h3>
-    {{ formset.management_form }}
+        /* Estilos para el título de productos */
+        h3 {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
 
-    <div id="formset-container">
-        {% for form in formset %}
-            <div class="producto-form" style="margin-bottom: 20px; border: 1px solid #ccc; padding: 10px;">
-                {{ form.as_p }}
-                {% if form.can_delete %}
-                    {{ form.DELETE }} <label>Eliminar</label>
-                {% endif %}
+        /* Estilos para el formulario */
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilos para los campos del formulario */
+        form p {
+            margin: 0 0 15px;
+        }
+
+        label {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+
+        /* Estilos para Flatpickr */
+        input.flatpickr-input {
+            background-color: #fff;
+        }
+
+        /* Estilos para el formset de productos */
+        .producto-form {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #fafafa;
+        }
+
+        .producto-form label[for$="DELETE"] {
+            display: inline;
+            margin-left: 5px;
+            font-size: 0.9rem;
+            color: #e74c3c;
+        }
+
+        .producto-form input[type="checkbox"] {
+            margin-top: 10px;
+        }
+
+        /* Estilos para los botones */
+        .acciones {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        button, a {
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 1rem;
+            color: #fff;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        button#add-product {
+            background-color: #2ecc71; /* Verde para acción de agregar */
+        }
+
+        button#add-product:hover {
+            background-color: #27ae60;
+        }
+
+        button[type="submit"] {
+            background-color: #3498db; /* Azul para acción principal */
+            margin-right: 2px; /* Botones juntos */
+        }
+
+        button[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+
+        a {
+            background-color: #e74c3c; /* Rojo para cancelar */
+            margin-left: 2px; /* Botones juntos, consistente con páginas anteriores */
+        }
+
+        a:hover {
+            background-color: #c0392b;
+        }
+
+        button:focus, a:focus {
+            outline: 2px solid #3498db;
+            outline-offset: 2px;
+        }
+
+        /* Estilos responsivos */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+            }
+
+            h3 {
+                font-size: 1.3rem;
+                margin-bottom: 15px;
+            }
+
+            form {
+                padding: 15px;
+            }
+
+            label {
+                font-size: 1rem;
+            }
+
+            input[type="text"],
+            input[type="number"],
+            input[type="date"],
+            select,
+            textarea {
+                font-size: 0.9rem;
+                padding: 8px;
+            }
+
+            .producto-form {
+                padding: 10px;
+                margin-bottom: 15px;
+            }
+
+            .acciones {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            button, a {
+                width: 100%;
+                text-align: center;
+                margin: 5px 0;
+            }
+
+            button[type="submit"] {
+                margin-right: 0;
+            }
+
+            a {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Crear Publicación</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ pub_form.as_p }}
+
+            <h3>Productos</h3>
+            {{ formset.management_form }}
+
+            <div id="formset-container">
+                {% for form in formset %}
+                    <div class="producto-form">
+                        {{ form.as_p }}
+                        {% if form.can_delete %}
+                            {{ form.DELETE }} <label for="{{ form.DELETE.id_for_label }}">Eliminar</label>
+                        {% endif %}
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
+
+            <div class="acciones">
+                <button type="button" id="add-product">Agregar Producto</button>
+                <button type="submit">Publicar</button>
+                <a href="{% url 'entidad' %}">Volver</a>
+            </div>
+        </form>
     </div>
 
-    <button type="button" id="add-product">Agregar Producto</button>
-    <button type="submit">Publicar</button>
-</form>
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        flatpickr("input[type='date']", {
-            dateFormat: "Y-m-d",
-            altInput: true,
-            altFormat: "d/m/Y",
-            locale: "es"
-        });
-    });
-</script>
-<!-- JS: jQuery + manejo dinámico -->
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const addBtn = document.getElementById('add-product');
-        const container = document.getElementById('formset-container');
-
-        // Obtén el número total de formularios
-        let totalForms = document.getElementById('id_form-TOTAL_FORMS');
-
-        addBtn.addEventListener('click', function () {
-            const formCount = parseInt(totalForms.value);
-            const firstForm = container.querySelector('.producto-form');
-            const newForm = firstForm.cloneNode(true); // clona el primer formulario
-
-            // Limpia los valores de los campos clonados
-            newForm.querySelectorAll('input, select').forEach(function(input) {
-                if (input.type !== 'hidden') {
-                    input.value = '';
-                }
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            flatpickr("input[type='date']", {
+                dateFormat: "Y-m-d",
+                altInput: true,
+                altFormat: "d/m/Y",
+                locale: "es"
             });
-
-            // Reemplaza los índices de los nombres y ids
-            newForm.innerHTML = newForm.innerHTML.replace(/form-(\d)+/g, `form-${formCount}`);
-            container.appendChild(newForm);
-            totalForms.value = formCount + 1;
         });
-    });
-</script>
+    </script>
+    <!-- JS: jQuery + manejo dinámico -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const addBtn = document.getElementById('add-product');
+            const container = document.getElementById('formset-container');
 
-<a href="{% url 'entidad' %}">Volver</a>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr">
+            // Obtén el número total de formularios
+            let totalForms = document.getElementById('id_form-TOTAL_FORMS');
 
+            addBtn.addEventListener('click', function () {
+                const formCount = parseInt(totalForms.value);
+                const firstForm = container.querySelector('.producto-form');
+                const newForm = firstForm.cloneNode(true); // clona el primer formulario
+
+                // Limpia los valores de los campos clonados
+                newForm.querySelectorAll('input, select').forEach(function(input) {
+                    if (input.type !== 'hidden') {
+                        input.value = '';
+                    }
+                });
+
+                // Reemplaza los índices de los nombres y ids
+                newForm.innerHTML = newForm.innerHTML.replace(/form-(\d)+/g, `form-${formCount}`);
+                container.appendChild(newForm);
+                totalForms.value = formCount + 1;
+
+                // Re-inicializa Flatpickr para los nuevos campos de fecha
+                flatpickr(newForm.querySelectorAll("input[type='date']"), {
+                    dateFormat: "Y-m-d",
+                    altInput: true,
+                    altFormat: "d/m/Y",
+                    locale: "es"
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+```

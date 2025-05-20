@@ -1,13 +1,142 @@
+```html
 {% extends 'base.html' %}
 {% block content %}
+  <style>
+    /* Estilos para el título */
+    h2 {
+        font-family: 'Arial', sans-serif;
+        font-size: 2rem;
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 10px;
+    }
+
+    /* Estilos para la lista de publicaciones */
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    li {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    li:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    li strong {
+        font-size: 1.2rem;
+        color: #2c3e50;
+    }
+
+    /* Contenedor para los botones de acción */
+    .acciones {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    /* Estilos para los botones de acción */
+    .acciones a {
+        text-decoration: none;
+        padding: 8px 12px;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        color: #fff;
+        transition: background-color 0.3s ease;
+    }
+
+    .acciones a[href*="editar"] {
+        background-color: #3498db;
+        margin-right: 2px; /* Reducido para botones más juntos */
+    }
+
+    .acciones a[href*="editar"]:hover {
+        background-color: #2980b9;
+    }
+
+    .acciones a[href*="eliminar"] {
+        background-color: #e74c3c;
+    }
+
+    .acciones a[href*="eliminar"]:hover {
+        background-color: #c0392b;
+    }
+
+    /* Estilos para accesibilidad */
+    .acciones a:focus, .acciones a:hover {
+        outline: 2px solid #3498db;
+        outline-offset: 2px;
+    }
+
+    /* Estilos responsivos */
+    @media (max-width: 768px) {
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            padding: 15px;
+        }
+
+        li {
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 10px;
+        }
+
+        li strong {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .acciones {
+            width: 100%;
+            flex-direction: column;
+            align-items: stretch; /* Botones ocupan todo el ancho en móviles */
+        }
+
+        .acciones a {
+            width: 100%;
+            text-align: center;
+            margin: 5px 0;
+        }
+
+        .acciones a[href*="editar"] {
+            margin-right: 0; /* Sin margen en móviles */
+        }
+    }
+  </style>
+
   <h2>Lista de Publicaciones</h2>
   <ul>
     {% for pub in publicaciones %}
       <li>
         <strong>{{ pub.nombre_empresa }}</strong>
-        <a href="{% url 'editar_publicacion_admin' pub.id %}">Editar</a> |
-        <a href="{% url 'eliminar_publicacion' pub.id %}">Eliminar</a>
+        <div class="acciones">
+          <a href="{% url 'editar_publicacion_admin' pub.id %}">Editar</a>
+          <a href="{% url 'eliminar_publicacion' pub.id %}">Eliminar</a>
+        </div>
       </li>
     {% endfor %}
   </ul>
 {% endblock %}
+```

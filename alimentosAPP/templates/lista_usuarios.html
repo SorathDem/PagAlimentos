@@ -1,7 +1,50 @@
 {% extends 'base.html' %}
 {% block content %}
+  <style>
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 8px;
+    }
+    a {
+      color: #2980b9;
+      text-decoration: none;
+      font-weight: 600;
+      margin-right: 10px;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    li {
+      background-color: #f4f6f8;
+      margin-bottom: 10px;
+      padding: 12px 15px;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .crear-usuario {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 8px 15px;
+      background-color: #27ae60;
+      color: white;
+      border-radius: 6px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+    .crear-usuario:hover {
+      background-color: #1e8449;
+    }
+  </style>
+
   <h2>Lista de Usuarios</h2>
-  <a href="{% url 'crear_usuario' %}">Crear nuevo usuario</a>
+  <a href="{% url 'crear_usuario' %}" class="crear-usuario">Crear nuevo usuario</a>
   <ul>
     {% for usuario in usuarios %}
       <li>

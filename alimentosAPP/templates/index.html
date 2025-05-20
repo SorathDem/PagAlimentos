@@ -1,11 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>index</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página de Inicio</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f8fb;
+      margin: 0;
+      height: 100vh; /* Altura completa de la pantalla */
+      display: flex;
+      justify-content: center; /* Centrado horizontal */
+      align-items: center;     /* Centrado vertical */
+      color: #2c3e50;
+    }
+
+    .nav-cta {
+      display: inline-block;
+      text-decoration: none;
+      background-color: #3498db;
+      color: #fff;
+      padding: 14px 24px;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .nav-cta:hover {
+      background-color: #2980b9;
+    }
+
+    @media (max-width: 768px) {
+      .nav-cta {
+        width: 80%;
+        text-align: center;
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-   <li><a class="nav-cta" href="/login/" onclick="mostrarModal('/login/')">Iniciar Sesión</a></li>
+
+  <a class="nav-cta" href="/login/" onclick="mostrarModal('/login/')">Iniciar Sesión</a>
+
+  <script>
+    function mostrarModal(url) {
+      // Aquí podrías implementar un modal más adelante
+      window.location.href = url;
+    }
+  </script>
+
 </body>
 </html>

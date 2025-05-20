@@ -1,28 +1,72 @@
 <!-- reporte_donaciones_general.html -->
 {% extends 'base.html' %}
 {% block content %}
+<style>
+  .reporte-donaciones {
+    border: 1px solid #bbb;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    background-color: #f0f0f0;
+  }
+
+  .reporte-donaciones h3 {
+    margin-top: 0;
+    color: #2c3e50;
+  }
+
+  .reporte-donaciones p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+  }
+
+  .reporte-donaciones strong {
+    color: #222;
+  }
+
+  .reporte-donaciones ul {
+    margin-top: 10px;
+    padding-left: 20px;
+    color: #444;
+  }
+
+  .reporte-donaciones ul li {
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin-top: 20px;
+  }
+</style>
+
 <h2>Reporte General de Donaciones (Aprobadas y Rechazadas)</h2>
 
 {% if donaciones %}
   {% for solicitud in donaciones %}
-    <h3>Empresa: {{ solicitud.publicacion.nombre_empresa }}</h3>
-    <p>Fundación: {{ solicitud.fundacion.username }}</p>
-    <p>Fecha: {{ solicitud.fecha_solicitud|date:"d/m/Y H:i" }}</p>
-    <p>Motivo: {{ solicitud.motivo }}</p>
-    <p>Estado: {{ solicitud.estado }}</p>
-    
-    <strong>Productos Solicitados:</strong>
-    <ul>
-      {% for prod_solicitado in solicitud.productos_solicitados.all %}
-        <li>
-          {{ prod_solicitado.producto.nombre }} -
-          Cantidad solicitada: {{ prod_solicitado.cantidad }} -
-          Categoría: {{ prod_solicitado.producto.categoria }} -
-          Vence: {{ prod_solicitado.producto.fecha_caducidad|date:"d/m/Y" }}
-        </li>
-      {% endfor %}
-    </ul>
-    <hr>
+    <div class="reporte-donaciones">
+      <h3>Empresa: {{ solicitud.publicacion.nombre_empresa }}</h3>
+      <p>Fundación: {{ solicitud.fundacion.username }}</p>
+      <p>Fecha: {{ solicitud.fecha_solicitud|date:"d/m/Y H:i" }}</p>
+      <p>Motivo: {{ solicitud.motivo }}</p>
+      <p>Estado: {{ solicitud.estado }}</p>
+
+      <strong>Productos Solicitados:</strong>
+      <ul>
+        {% for prod_solicitado in solicitud.productos_solicitados.all %}
+          <li>
+            {{ prod_solicitado.producto.nombre }} -
+            Cantidad solicitada: {{ prod_solicitado.cantidad }} -
+            Categoría: {{ prod_solicitado.producto.categoria }} -
+            Vence: {{ prod_solicitado.producto.fecha_caducidad|date:"d/m/Y" }}
+          </li>
+        {% endfor %}
+      </ul>
+      <hr>
+    </div>
   {% endfor %}
 {% else %}
   <p>No hay solicitudes aprobadas o rechazadas.</p>

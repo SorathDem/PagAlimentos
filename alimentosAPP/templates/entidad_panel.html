@@ -1,5 +1,71 @@
-<h1>Bienvenido, Entidad Donante</h1>
-<p>Aquí puedes publicar productos y ver solicitudes.</p>
-<a href="{% url 'lista_solicitudes' %}" class="btn btn-primary">Ver todas las solicitudes</a>
-<a href="{% url 'mis_publicaciones' %}">Ver mis publicaciones </a>
-<a href="{% url 'crear_publicacion' %}">Crear publicacion</a>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Bienvenido - Entidad Donante</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f8fb;
+      color: #2c3e50;
+      margin: 0;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
+    a {
+      display: inline-block;
+      text-decoration: none;
+      background-color: #3498db;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-size: 1rem;
+      margin: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    a:hover {
+      background-color: #2980b9;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      p {
+        font-size: 1.1rem;
+      }
+
+      a {
+        display: block;
+        width: 80%;
+        margin: 10px auto;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Bienvenido, Entidad Donante</h1>
+  <p>Aquí puedes publicar productos y ver solicitudes.</p>
+
+  <a href="{% url 'lista_solicitudes' %}">Ver todas las solicitudes</a>
+  <a href="{% url 'mis_publicaciones' %}">Ver mis publicaciones</a>
+  <a href="{% url 'crear_publicacion' %}">Crear publicación</a>
+
+</body>
+</html>

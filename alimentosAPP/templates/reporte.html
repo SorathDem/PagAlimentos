@@ -1,5 +1,31 @@
 {% extends "base.html" %}
 {% block content %}
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+  }
+  thead tr {
+    background-color: #2c3e50;
+    color: white;
+  }
+  th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  h2 {
+    color: #34495e;
+  }
+</style>
+
 <h2>Reporte de Donaciones Exitosas</h2>
 <table>
     <thead>
@@ -17,9 +43,11 @@
             <td>{{ donacion.producto.nombre }}</td>
             <td>{{ donacion.entidad.username }}</td>
             <td>{{ donacion.fundacion.username }}</td>
-            <td>{{ donacion.fecha_donacion }}</td>
+            <td>{{ donacion.fecha_donacion|date:"d/m/Y H:i" }}</td>
             <td>{{ donacion.cantidad }}</td>
         </tr>
+        {% empty %}
+        <tr><td colspan="5">No hay donaciones exitosas.</td></tr>
         {% endfor %}
     </tbody>
 </table>

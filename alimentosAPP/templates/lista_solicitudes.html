@@ -1,36 +1,130 @@
-<h1>Solicitudes recibidas</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Solicitudes Recibidas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px 20px;
+            background-color: #f9fafd;
+            color: #2c3e50;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #34495e;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        thead {
+            background-color: #3498db;
+            color: #fff;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        tbody tr:hover {
+            background-color: #f1f7fc;
+        }
+        a {
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        button {
+            background-color: #27ae60;
+            border: none;
+            color: white;
+            padding: 7px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #1e8449;
+        }
+        .volver-link {
+            display: block;
+            max-width: 150px;
+            margin: 25px auto 0 auto;
+            text-align: center;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 0;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .volver-link:hover {
+            background-color: #2980b9;
+        }
+        @media (max-width: 600px) {
+            th, td {
+                padding: 8px 10px;
+            }
+            button {
+                padding: 6px 10px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
 
-<table>
-    <thead>
-        <tr>
-            <th>Solicitante</th>
-            <th>Fecha</th>
-            <th>Motivo</th>
-            <th>Detalle</th>
-            <th>Acción</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for solicitud in solicitudes %}
-        <tr>
-            <td>{{ solicitud.fundacion.username }}</td>
-            <td>{{ solicitud.fecha_solicitud|date:"d/m/Y H:i" }}</td>
-            <td>{{ solicitud.motivo }}</td>
-            <td><a href="{% url 'detalle_solicitud' solicitud.id %}">Ver detalle</a></td>
-            <td>
-                {% if solicitud.estado != "Aprobada" %}
-                <form action="{% url 'aprobar_solicitud' solicitud.id %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit">Aprobar</button>
-                </form>
-                {% else %}
-                Aprobada
-                {% endif %}
-            </td>
-        </tr>
-        {% empty %}
-        <tr><td colspan="5">No hay solicitudes.</td></tr>
-        {% endfor %}
-        <a href="{% url 'entidad' %}">Volver</a>
-    </tbody>
-</table>
+    <h1>Solicitudes recibidas</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Solicitante</th>
+                <th>Fecha</th>
+                <th>Motivo</th>
+                <th>Detalle</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for solicitud in solicitudes %}
+            <tr>
+                <td>{{ solicitud.fundacion.username }}</td>
+                <td>{{ solicitud.fecha_solicitud|date:"d/m/Y H:i" }}</td>
+                <td>{{ solicitud.motivo }}</td>
+                <td><a href="{% url 'detalle_solicitud' solicitud.id %}">Ver detalle</a></td>
+                <td>
+                    {% if solicitud.estado != "Aprobada" %}
+                    <form action="{% url 'aprobar_solicitud' solicitud.id %}" method="post" style="margin:0;">
+                        {% csrf_token %}
+                        <button type="submit">Aprobar</button>
+                    </form>
+                    {% else %}
+                    Aprobada
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5" style="text-align:center; color:#e74c3c;">No hay solicitudes.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{% url 'entidad' %}" class="volver-link">Volver</a>
+
+</body>
+</html>

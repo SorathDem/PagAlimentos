@@ -1,27 +1,171 @@
-<h2>Detalles de la Solicitud</h2>
+```html
+{% extends 'base.html' %}
+{% block content %}
+  <style>
+    /* Estilos para el contenedor principal */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: 'Arial', sans-serif;
+        color: #2c3e50;
+    }
 
-<p><strong>Fundación:</strong> {{ solicitud.fundacion }}</p>
-<p><strong>Motivo:</strong> {{ solicitud.motivo }}</p>
-<p><strong>Fecha de solicitud:</strong> {{ solicitud.fecha_solicitud }}</p>
+    /* Estilos para el título */
+    h2 {
+        font-size: 2rem;
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 10px;
+    }
 
-<h3>Productos Solicitados</h3>
-<table border="1">
-    <thead>
-        <tr>
-            <th>Producto</th>
-            <th>Cantidad Solicitada</th>
-            <th>Fecha de Caducidad</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for ps in productos_solicitados %}
-        <tr>
-            <td>{{ ps.producto.nombre }}</td>
-            <td>{{ ps.cantidad }}</td>
-            <td>{{ ps.producto.fecha_caducidad }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    /* Estilos para el subtítulo */
+    h3 {
+        font-size: 1.5rem;
+        color: #2c3e50;
+        margin: 30px 0 20px;
+    }
 
-<a href="{% url 'lista_solicitudes' %}">Volver a la lista de solicitudes</a>
+    /* Estilos para los párrafos de información */
+    p {
+        font-size: 1.1rem;
+        color: #2c3e50;
+        margin: 0 0 10px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    p strong {
+        font-weight: bold;
+        color: #2c3e50;
+    }
+
+    /* Estilos para la tabla */
+    table {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        border-collapse: collapse;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        font-size: 1.1rem;
+    }
+
+    th {
+        background-color: #3498db;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    tr:hover {
+        background-color: #f4f4f9;
+        transition: background-color 0.2s ease;
+    }
+
+    /* Estilos para el enlace */
+    .acciones {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    a {
+        text-decoration: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        font-size: 1rem;
+        color: #fff;
+        background-color: #e74c3c; /* Rojo para cancelar */
+        transition: background-color 0.3s ease;
+    }
+
+    a:hover {
+        background-color: #c0392b;
+    }
+
+    a:focus {
+        outline: 2px solid #3498db;
+        outline-offset: 2px;
+    }
+
+    /* Estilos responsivos */
+    @media (max-width: 768px) {
+        .container {
+            padding: 15px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            margin: 20px 0 15px;
+        }
+
+        p {
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        th, td {
+            padding: 10px;
+            font-size: 0.9rem;
+        }
+
+        a {
+            width: 100%;
+            text-align: center;
+            padding: 12px;
+        }
+    }
+  </style>
+
+  <div class="container">
+    <h2>Detalles de la Solicitud</h2>
+
+    <p><strong>Fundación:</strong> {{ solicitud.fundacion }}</p>
+    <p><strong>Motivo:</strong> {{ solicitud.motivo }}</p>
+    <p><strong>Fecha de solicitud:</strong> {{ solicitud.fecha_solicitud }}</p>
+
+    <h3>Productos Solicitados</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad Solicitada</th>
+                <th>Fecha de Caducidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ps in productos_solicitados %}
+            <tr>
+                <td>{{ ps.producto.nombre }}</td>
+                <td>{{ ps.cantidad }}</td>
+                <td>{{ ps.producto.fecha_caducidad }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="acciones">
+        <a href="{% url 'lista_solicitudes' %}">Volver a la lista de solicitudes</a>
+    </div>
+  </div>
+{% endblock %}
+```

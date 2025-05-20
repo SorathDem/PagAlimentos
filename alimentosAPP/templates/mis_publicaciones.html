@@ -1,15 +1,58 @@
-{% for publicacion in publicaciones %}
-    <div>
-        <h3>{{ publicacion.nombre_empresa }}</h3>
-        <ul>
-            {% for producto in publicacion.productos.all %}
-                <li>{{ producto.nombre }} - Cantidad: {{ producto.cantidad }}</li>
-            {% endfor %}
-        </ul>
-        <a href="{% url 'editar_publicacion' publicacion.pk %}">Editar</a>
-        <a href="{% url 'eliminar_publicacion_usuario' publicacion.pk %}">Eliminar</a>
+<style>
+  .publicacion {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    background-color: #fafafa;
+  }
+  .publicacion h3 {
+    margin-top: 0;
+    color: #2c3e50;
+  }
+  .publicacion ul {
+    padding-left: 20px;
+    margin-bottom: 10px;
+  }
+  .btn-link {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 6px 12px;
+    background-color: #3498db;
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+  .btn-link:hover {
+    background-color: #2980b9;
+  }
+  .volver {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 8px 15px;
+    background-color: #7f8c8d;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .volver:hover {
+    background-color: #636e72;
+  }
+</style>
 
-    </div>
-    
+{% for publicacion in publicaciones %}
+  <div class="publicacion">
+    <h3>{{ publicacion.nombre_empresa }}</h3>
+    <ul>
+      {% for producto in publicacion.productos.all %}
+        <li>{{ producto.nombre }} - Cantidad: {{ producto.cantidad }}</li>
+      {% endfor %}
+    </ul>
+    <a href="{% url 'editar_publicacion' publicacion.pk %}" class="btn-link">Editar</a>
+    <a href="{% url 'eliminar_publicacion_usuario' publicacion.pk %}" class="btn-link">Eliminar</a>
+  </div>
 {% endfor %}
-<a href="{% url 'entidad' %}">Volver</a>
+<a href="{% url 'entidad' %}" class="volver">Volver</a>

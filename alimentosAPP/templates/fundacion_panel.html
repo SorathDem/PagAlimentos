@@ -1,5 +1,70 @@
-<h1>Bienvenido, Fundación</h1>
-<p>Aquí puedes ver productos y realizar solicitudes.</p>
-<a href="{% url 'lista_publicaciones' %}">Ver todas las publicaciones</a>
-<a href="{% url 'solicitudes_fundacion' %}">Mis solicitudes</a>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Bienvenido - Fundación</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f8fb;
+      color: #2c3e50;
+      margin: 0;
+      padding: 40px 20px;
+      text-align: center;
+    }
 
+    h1 {
+      font-size: 2.2rem;
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
+    a {
+      display: inline-block;
+      text-decoration: none;
+      background-color: #3498db;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-size: 1rem;
+      margin: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    a:hover {
+      background-color: #2980b9;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      p {
+        font-size: 1.1rem;
+      }
+
+      a {
+        display: block;
+        width: 80%;
+        margin: 10px auto;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Bienvenido, Fundación</h1>
+  <p>Aquí puedes ver productos y realizar solicitudes.</p>
+
+  <a href="{% url 'lista_publicaciones' %}">Ver todas las publicaciones</a>
+  <a href="{% url 'solicitudes_fundacion' %}">Mis solicitudes</a>
+
+</body>
+</html>

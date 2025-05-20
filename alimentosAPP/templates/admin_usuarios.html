@@ -1,16 +1,179 @@
-<h2>Usuarios</h2>
-<a href="{% url 'crear_usuario' %}">Crear nuevo usuario</a>
-<table>
-    <tr><th>Nombre</th><th>Email</th><th>Rol</th><th>Acciones</th></tr>
-    {% for user in usuarios %}
-    <tr>
-        <td>{{ user.username }}</td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.rol }}</td>
-        <td>
-            <a href="{% url 'editar_usuario' user.id %}">Editar</a>
-            <a href="{% url 'eliminar_usuario' user.id %}">Eliminar</a>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+```html
+{% extends 'base.html' %}
+{% block content %}
+  <style>
+    /* Estilos para el contenedor principal */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: 'Arial', sans-serif;
+        color: #2c3e50;
+    }
+
+    /* Estilos para el título */
+    h2 {
+        font-size: 2rem;
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 10px;
+    }
+
+    /* Estilos para el enlace de crear usuario */
+    a[href*="crear_usuario"] {
+        display: inline-block;
+        text-decoration: none;
+        padding: 10px 15px;
+        background-color: #3498db;
+        color: #fff;
+        border-radius: 5px;
+        font-size: 1rem;
+        margin-bottom: 20px;
+        text-align: center;
+        transition: background-color 0.3s ease;
+    }
+
+    a[href*="crear_usuario"]:hover {
+        background-color: #2980b9;
+    }
+
+    a[href*="crear_usuario"]:focus {
+        outline: 2px solid #3498db;
+        outline-offset: 2px;
+    }
+
+    /* Estilos para la tabla */
+    table {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        border-collapse: collapse;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        font-size: 1.1rem;
+    }
+
+    th {
+        background-color: #3498db;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    tr:hover {
+        background-color: #f4f4f9;
+        transition: background-color 0.2s ease;
+    }
+
+    /* Contenedor para los botones de acción */
+    .acciones {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    /* Estilos para los botones de acción */
+    .acciones a {
+        text-decoration: none;
+        padding: 8px 12px;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        color: #fff;
+        transition: background-color 0.3s ease;
+    }
+
+    .acciones a[href*="editar"] {
+        background-color: #3498db;
+        margin-right: 2px; /* Botones juntos, consistente con páginas anteriores */
+    }
+
+    .acciones a[href*="editar"]:hover {
+        background-color: #2980b9;
+    }
+
+    .acciones a[href*="eliminar"] {
+        background-color: #e74c3c;
+    }
+
+    .acciones a[href*="eliminar"]:hover {
+        background-color: #c0392b;
+    }
+
+    /* Estilos para accesibilidad */
+    .acciones a:focus, .acciones a:hover {
+        outline: 2px solid #3498db;
+        outline-offset: 2px;
+    }
+
+    /* Estilos responsivos */
+    @media (max-width: 768px) {
+        .container {
+            padding: 15px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        a[href*="crear_usuario"] {
+            width: 100%;
+            padding: 12px;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        th, td {
+            padding: 10px;
+            font-size: 1rem;
+        }
+
+        .acciones {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .acciones a {
+            width: 100%;
+            text-align: center;
+            margin: 5px 0;
+        }
+
+        .acciones a[href*="editar"] {
+            margin-right: 0;
+        }
+    }
+  </style>
+
+  <div class="container">
+    <h2>Usuarios</h2>
+    <a href="{% url 'crear_usuario' %}">Crear nuevo usuario</a>
+    <table>
+        <tr><th>Nombre</th><th>Email</th><th>Rol</th><th>Acciones</th></tr>
+        {% for user in usuarios %}
+        <tr>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.rol }}</td>
+            <td>
+                <div class="acciones">
+                    <a href="{% url 'editar_usuario' user.id %}">Editar</a>
+                    <a href="{% url 'eliminar_usuario' user.id %}">Eliminar</a>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+  </div>
+{% endblock %}
+```

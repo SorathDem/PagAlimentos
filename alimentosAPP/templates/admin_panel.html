@@ -1,14 +1,121 @@
+```html
 {% extends 'base.html' %}
-
 {% block content %}
-<h1>Bienvenido, Administrador</h1>
-<p>Aquí puedes gestionar usuarios y generar reportes.</p>
+  <style>
+    /* Estilos para el contenedor principal */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: 'Arial', sans-serif;
+        color: #2c3e50;
+    }
 
-<h1>Panel de Administración</h1>
-<ul>
-    <li><a href="{% url 'lista_usuarios' %}">Gestionar Usuarios</a></li>
-    <li><a href="{% url 'lista_publicaciones_admin' %}">Gestionar Publicaciones</a></li>
-    <li><a href="{% url 'reporte_donaciones_exitosas' %}">Reporte de Donaciones Exitosas</a></li>
-    <li><a href="{% url 'reporte_donaciones_general' %}">Reporte General de Donaciones</a></li>
-</ul>
+    /* Estilos para los títulos */
+    h1 {
+        font-size: 2rem;
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 10px;
+    }
+
+    /* Estilos para el párrafo de bienvenida */
+    p {
+        font-size: 1.1rem;
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    /* Estilos para la lista de opciones */
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    li {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    li:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Estilos para los enlaces */
+    li a {
+        display: block;
+        text-decoration: none;
+        font-size: 1.1rem;
+        color: #3498db;
+        text-align: center;
+        padding: 10px;
+        transition: color 0.3s ease;
+    }
+
+    li a:hover {
+        color: #2980b9;
+    }
+
+    li a:focus {
+        outline: 2px solid #3498db;
+        outline-offset: 2px;
+    }
+
+    /* Estilos responsivos */
+    @media (max-width: 768px) {
+        .container {
+            padding: 15px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            padding: 10px;
+        }
+
+        li {
+            padding: 10px;
+        }
+
+        li a {
+            font-size: 1rem;
+            padding: 8px;
+        }
+    }
+  </style>
+
+  <div class="container">
+    <h1>Bienvenido, Administrador</h1>
+    <p>Aquí puedes gestionar usuarios y generar reportes.</p>
+
+    <h1>Panel de Administración</h1>
+    <ul>
+        <li><a href="{% url 'lista_usuarios' %}">Gestionar Usuarios</a></li>
+        <li><a href="{% url 'lista_publicaciones_admin' %}">Gestionar Publicaciones</a></li>
+        <li><a href="{% url 'reporte_donaciones_exitosas' %}">Reporte de Donaciones Exitosas</a></li>
+        <li><a href="{% url 'reporte_donaciones_general' %}">Reporte General de Donaciones</a></li>
+    </ul>
+  </div>
 {% endblock %}
+```

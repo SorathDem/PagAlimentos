@@ -1,33 +1,307 @@
+```html
 {% extends 'base.html' %}
-
 {% block content %}
-  <h2>Editar Producto Donado: {{ producto.nombre }}</h2>
+  <style>
+    /* Estilos para el contenedor principal */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: 'Arial', sans-serif;
+        color: #2c3e50;
+    }
 
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Guardar cambios</button>
-  </form>
+    /* Estilos para el título */
+    h2 {
+        font-size: 2rem;
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 10px;
+    }
 
-  <hr>
-  <h3>Productos asociados a esta publicación ({{ publicacion.nombre_empresa }})</h3>
-  {% if productos_publicacion %}
-    <ul>
-      {% for prod in productos_publicacion %}
-        <li>
-          {{ prod.nombre }} - {{ prod.categoria }} - Cant: {{ prod.cantidad }} - Vence: {{ prod.fecha_caducidad }}
-          {% if prod.id == producto.id %}
-            <strong>(Editando)</strong>
-          {% else %}
-            <a href="{% url 'editar_producto_donado' prod.id %}">Editar</a> |
-            <a href="{% url 'eliminar_producto_donado' prod.id %}">Eliminar</a>
-          {% endif %}
-        </li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>No hay productos asociados a esta publicación.</p>
-  {% endif %}
+    /* Estilos para el subtítulo */
+    h3 {
+        font-size: 1.5rem;
+        color: #2c3e50;
+        margin: 30px 0 20px;
+    }
 
-  <a href="{% url 'editar_publicacion_admin' publicacion.id %}">Volver a la publicación</a>
+    /* Estilos para el formulario */
+    form {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    form p {
+        margin: 0 0 15px;
+    }
+
+    label {
+        font-size: 1.1rem;
+        color: #2c3e50;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+        box-sizing: border-box;
+    }
+
+    input:focus,
+    select:focus {
+        border-color: #3498db;
+        outline: none;
+        box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+    }
+
+    /* Estilos para la línea divisoria */
+    hr {
+        border: 0;
+        border-top: 1px solid #ddd;
+        margin: 30px 0;
+    }
+
+    /* Estilos para la lista de productos */
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 auto;
+        max-width: 600px;
+    }
+
+    li {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+        font-size: 1.1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    li:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    li strong {
+        color: #3498db;
+        font-weight: bold;
+    }
+
+    /* Estilos para el estado vacío */
+    p.empty {
+        font-size: 1.1rem;
+        color: #e74c3c;
+        text-align: center;
+        background-color: #fce4e4;
+        padding: 15px;
+        border-radius: 8px;
+        max-width: 600px;
+        margin: 0 auto;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Estilos para los botones y enlaces */
+    .acciones {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .acciones-lista {
+        display: flex;
+        align-items: center;
+    }
+
+    button, a {
+        text-decoration: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        font-size: 1rem;
+        color: #fff;
+        transition: background-color 0.3s ease;
+        border: none;
+        cursor: pointer;
+    }
+
+    button {
+        background-color: #3498db; /* Azul para acción principal */
+    }
+
+    button:hover {
+        background-color: #2980b9;
+    }
+
+    a[href*="editar"] {
+        background-color: #3498db; /* Azul para editar */
+        margin-right: 2px; /* Botones juntos */
+    }
+
+    a[href*="editar"]:hover {
+        background-color: #2980b9;
+    }
+
+    a[href*="eliminar"] {
+        background-color: #e74c3c; /* Rojo para eliminar */
+    }
+
+    a[href*="eliminar"]:hover {
+        background-color: #c0392b;
+    }
+
+    a[href*="editar_publicacion_admin"] {
+        background-color: #e74c3c; /* Rojo para volver */
+        margin-left: 2px; /* Consistente con páginas anteriores */
+    }
+
+    a[href*="editar_publicacion_admin"]:hover {
+        background-color: #c0392b;
+    }
+
+    button:focus, a:focus {
+        outline: 2px solid #3498db;
+        outline-offset: 2px;
+    }
+
+    /* Estilos responsivos */
+    @media (max-width: 768px) {
+        .container {
+            padding: 15px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            margin: 20px 0 15px;
+        }
+
+        form {
+            padding: 15px;
+        }
+
+        label {
+            font-size: 1rem;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        select {
+            font-size: 0.9rem;
+            padding: 8px;
+        }
+
+        ul {
+            padding: 0 10px;
+        }
+
+        li {
+            font-size: 1rem;
+            padding: 10px;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .acciones-lista {
+            width: 100%;
+            flex-direction: column;
+            align-items: stretch;
+            margin-top: 10px;
+        }
+
+        a[href*="editar"], a[href*="eliminar"] {
+            width: 100%;
+            text-align: center;
+            margin: 5px 0;
+        }
+
+        a[href*="editar"] {
+            margin-right: 0;
+        }
+
+        p.empty {
+            font-size: 1rem;
+            padding: 10px;
+        }
+
+        .acciones {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        button, a[href*="editar_publicacion_admin"] {
+            width: 100%;
+            text-align: center;
+            margin: 5px 0;
+        }
+
+        a[href*="editar_publicacion_admin"] {
+            margin-left: 0;
+        }
+    }
+  </style>
+
+  <div class="container">
+    <h2>Editar Producto Donado: {{ producto.nombre }}</h2>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="acciones">
+        <button type="submit">Guardar cambios</button>
+      </div>
+    </form>
+
+    <hr>
+    <h3>Productos asociados a esta publicación ({{ publicacion.nombre_empresa }})</h3>
+    {% if productos_publicacion %}
+      <ul>
+        {% for prod in productos_publicacion %}
+          <li>
+            {{ prod.nombre }} - {{ prod.categoria }} - Cant: {{ prod.cantidad }} - Vence: {{ prod.fecha_caducidad }}
+            {% if prod.id == producto.id %}
+              <strong>(Editando)</strong>
+            {% else %}
+              <div class="acciones-lista">
+                <a href="{% url 'editar_producto_donado' prod.id %}">Editar</a>
+                <a href="{% url 'eliminar_producto_donado' prod.id %}">Eliminar</a>
+              </div>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="empty">No hay productos asociados a esta publicación.</p>
+    {% endif %}
+
+    <div class="acciones">
+      <a href="{% url 'editar_publicacion_admin' publicacion.id %}">Volver a la publicación</a>
+    </div>
+  </div>
 {% endblock %}
+```
