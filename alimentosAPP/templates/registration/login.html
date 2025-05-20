@@ -1,63 +1,82 @@
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f6f8;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-    }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar sesión</title>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-    form {
-        background-color: #fff;
-        padding: 30px 40px;
-        border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        max-width: 400px;
-    }
+        form {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
 
-    label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-        color: #333;
-    }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
 
-    input[type="text"],
-    input[type="password"] {
-        width: 100%;
-        padding: 10px 12px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-        font-size: 14px;
-    }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
 
-    button {
-        width: 100%;
-        padding: 10px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        font-size: 16px;
-        cursor: pointer;
-    }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #3a86ff;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
 
-    button:hover {
-        background-color: #45a049;
-    }
+        button:hover {
+            background-color: #265dc4;
+        }
 
-    p {
-        margin-top: 10px;
-        font-size: 14px;
-    }
+        p {
+            text-align: center;
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <label for="username">Usuario:</label>
+        <input type="text" name="username" id="username" required>
 
-    p[style*="color:red"] {
-        color: red;
-        font-weight: bold;
-    }
-</style>
+        <label for="password">Contraseña:</label>
+        <input type="password" name="password" id="password" required>
+
+        <button type="submit">Iniciar sesión</button>
+
+        {% if messages %}
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        {% endif %}
+    </form>
+</body>
+</html>
